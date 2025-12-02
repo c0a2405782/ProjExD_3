@@ -190,8 +190,7 @@ def main():
                 screen.blit(txt, [WIDTH//2-150, HEIGHT//2])
                 pg.display.update()
                 time.sleep(1)
-                return
-            
+                return     
         
         for i,beam in enumerate(beams):
             if beam is None: #Noneはスキップ
