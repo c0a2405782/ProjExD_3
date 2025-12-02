@@ -140,12 +140,29 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+class Score:
+    """
+    スコアに関するクラス
+    """
+    def __init__(self):
+        # フォント設定
+        self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
+        # 文字色（青）
+        self.color = (0, 0, 255)
+        # スコア初期値
+        self.score = 0
+        # 文字列Surfaceの生成
+        self.img = self.fonto.render(f"Score : {self.score}", 0, self.color)
+        # 文字列の中心座標（画面左下：横100, 縦：下から50）
+        self.rct = self.img.get_rect()
+        self.rct.center = (100, HEIGHT - 50)
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
+    score = Score()
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None  # ゲーム初期化時にはビームは存在しない
     clock = pg.time.Clock()
