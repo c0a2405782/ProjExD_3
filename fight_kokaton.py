@@ -156,6 +156,12 @@ class Score:
         # 文字列の中心座標（画面左下：横100, 縦：下から50）
         self.rct = self.img.get_rect()
         self.rct.center = (100, HEIGHT - 50)
+    def update(self, screen: pg.Surface):
+        """
+        スコア表示を更新する
+        """
+        self.img = self.fonto.render(f"Score : {self.score}", 0, self.color)
+        screen.blit(self.img, self.rct)
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -192,6 +198,7 @@ def main():
                     # ビームが爆弾に当たったら，爆弾とビームを消す
                     beam = None
                     bombs[b] = None
+                    score.score += 1
                     bird.change_img(6,screen)
                     pg.display.update()
 
@@ -203,6 +210,8 @@ def main():
             beam.update(screen)   
         for bomb in bombs:  # 爆弾が存在していたら
             bomb.update(screen)
+
+        score.update(screen)
         
         pg.display.update()
         tmr += 1
