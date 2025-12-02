@@ -169,6 +169,7 @@ def main():
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
     score = Score()
+    beams = []  # 複数ビームのリスト
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None  # ゲーム初期化時にはビームは存在しない
     clock = pg.time.Clock()
@@ -178,8 +179,8 @@ def main():
             if event.type == pg.QUIT:
                 return
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
-                # スペースキー押下でBeamクラスのインスタンス生成
-                beam = Beam(bird)            
+                # スペースキー押下でビームリストに追加
+                beams.append(Beam(bird))            
         screen.blit(bg_img, [0, 0])
         for b,bomb in enumerate(bombs):
             if bird.rct.colliderect(bomb.rct):
